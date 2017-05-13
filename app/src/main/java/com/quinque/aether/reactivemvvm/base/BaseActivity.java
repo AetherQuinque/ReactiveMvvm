@@ -1,8 +1,12 @@
 package com.quinque.aether.reactivemvvm.base;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import java.io.Serializable;
 
 
 public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatActivity {
@@ -26,8 +30,11 @@ public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatAct
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (data != null)
-            outState.putParcelable(DATA, data);
+        if (data != null) {
+            Log.d("my", "Данные сохранены");
+            outState.putParcelable(DATA, (Parcelable) data);
+        }
+
     }
 
 
@@ -38,6 +45,7 @@ public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatAct
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.d("my", "onDestroy");
         if (isFinishing())
             destroyData();
     }
@@ -61,6 +69,7 @@ public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatAct
      * @return возврощает ViewModel, которая прикреплена за конкретной активити
      */
     public T getData() {
+        Log.d("my", "Отдаем данные");
         return data;
     }
 
@@ -81,6 +90,7 @@ public abstract class BaseActivity<T extends BaseViewModel> extends AppCompatAct
         if (data != null) {
             data.globalDispose();
             data = null;
+            Log.d("my", "Данные уничтожены");
         }
     }
 

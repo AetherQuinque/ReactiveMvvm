@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import io.reactivex.Observable;
@@ -19,30 +17,15 @@ import io.reactivex.disposables.Disposable;
  * Наследуем BaseObservable для реализации конвертера из BaseObservable data binding в Observable
  * RxJava 2.
  */
-public class BaseViewModel extends BaseObservable implements Parcelable {
+public abstract class BaseViewModel extends BaseObservable {
 
 
-    public static final Creator<BaseViewModel> CREATOR = new Creator<BaseViewModel>() {
-        @Override
-        public BaseViewModel createFromParcel(Parcel in) {
-            return new BaseViewModel(in);
-        }
-
-        @Override
-        public BaseViewModel[] newArray(int size) {
-            return new BaseViewModel[size];
-        }
-    };
     private CompositeDisposable disposables; //Для удобного управления подписками
     private Activity activity;
 
 
     protected BaseViewModel() {
         disposables = new CompositeDisposable();
-    }
-
-    private BaseViewModel(Parcel in) {
-
     }
 
     /**
@@ -111,13 +94,4 @@ public class BaseViewModel extends BaseObservable implements Parcelable {
     }
 
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-    }
 }
