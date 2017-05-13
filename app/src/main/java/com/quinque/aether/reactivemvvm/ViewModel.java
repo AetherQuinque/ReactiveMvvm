@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class ViewModel extends BaseViewModel implements Parcelable {
-
+ 
 
     public static final Creator<ViewModel> CREATOR = new Creator<ViewModel>() {
         @Override
